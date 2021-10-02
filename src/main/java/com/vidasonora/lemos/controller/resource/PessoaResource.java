@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vidasonora.lemos.controller.service.PessoaService;
+import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
 import com.vidasonora.lemos.model.entity.Pessoa;
 
@@ -45,10 +46,14 @@ public class PessoaResource {
 		return ResponseEntity.ok().body(pacientes);
 	}
 	
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Pessoa> editar(@PathVariable Long id,@RequestBody Pessoa paciente){
-		Pessoa pacienteEditado = pessoaService.editar(id, paciente);
-		return ResponseEntity.ok().body(pacienteEditado);
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<?> editar(@RequestBody Pessoa paciente){
+		try {			
+			Pessoa pacienteEditado = pessoaService.editar(paciente);
+			return ResponseEntity.ok().body(pacienteEditado);
+		} catch (ObjetoNaoAtualizado e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)

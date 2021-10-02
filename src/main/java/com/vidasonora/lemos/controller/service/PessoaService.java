@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
 import com.vidasonora.lemos.model.entity.Pessoa;
 import com.vidasonora.lemos.model.repository.PessoaRepository;
@@ -32,9 +33,13 @@ public class PessoaService {
 		return pessoas;
 	}
 	
-	public Pessoa editar(Long id, Pessoa pessoa) {
-		buscarPorId(id);
-		pessoa = pessoaRepository.save(pessoa);		
+	public Pessoa editar(Pessoa pessoa) {
+		try {			
+			buscarPorId(pessoa.getId());
+			pessoa = pessoaRepository.save(pessoa);		
+		}catch (ObjetoNaoEncontrado e) {
+			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");
+		}
 		return pessoa;
 	}
 	
