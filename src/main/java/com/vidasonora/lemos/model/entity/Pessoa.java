@@ -38,7 +38,7 @@ public class Pessoa {
 	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date nascimento;
 	
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Contato> contatos = new ArrayList<Contato>();
 	
 

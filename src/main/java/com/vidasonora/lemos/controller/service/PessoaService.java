@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
 import com.vidasonora.lemos.model.entity.Pessoa;
+import com.vidasonora.lemos.model.repository.ContatoRepository;
 import com.vidasonora.lemos.model.repository.PessoaRepository;
 
 @Service
@@ -16,11 +17,15 @@ public class PessoaService {
 	
 	@Autowired
 	PessoaRepository pessoaRepository;
+	@Autowired
+	ContatoRepository contatoRepository;
 	
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
-		pessoa = pessoaRepository.save(pessoa);		
-		return pessoa;
+		Pessoa pessoaSalva = pessoaRepository.save(pessoa);	
+		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoaSalva));
+		contatoRepository.saveAll(pessoa.getContatos());		
+		return pessoaSalva;
 	}
 	
 	public Pessoa buscarPorId(Long id) {
@@ -36,11 +41,12 @@ public class PessoaService {
 	public Pessoa editar(Pessoa pessoa) {
 		try {			
 			buscarPorId(pessoa.getId());
-			pessoa = pessoaRepository.save(pessoa);		
+			Pessoa pessoaSalva = pessoaRepository.save(pessoa);		
+			pessoaSalva.getContatos().forEach(contato -> contato.setPessoa(pessoaSalva));
+			return pessoaSalva;
 		}catch (ObjetoNaoEncontrado e) {
 			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");
 		}
-		return pessoa;
 	}
 	
 	public void delete(Long id) {
