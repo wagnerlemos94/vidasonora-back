@@ -22,10 +22,8 @@ public class PessoaService {
 	
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
-		Pessoa pessoaSalva = pessoaRepository.save(pessoa);	
-		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoaSalva));
-		contatoRepository.saveAll(pessoa.getContatos());		
-		return pessoaSalva;
+		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
+		return pessoaRepository.save(pessoa);	
 	}
 	
 	public Pessoa buscarPorId(Long id) {
@@ -38,12 +36,11 @@ public class PessoaService {
 		return pessoas;
 	}
 	
-	public Pessoa editar(Pessoa pessoa) {
+	public Pessoa editar(Long id, Pessoa pessoa) {
 		try {			
-			buscarPorId(pessoa.getId());
-			Pessoa pessoaSalva = pessoaRepository.save(pessoa);		
-			pessoaSalva.getContatos().forEach(contato -> contato.setPessoa(pessoaSalva));
-			return pessoaSalva;
+			buscarPorId(id);
+			pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
+			return pessoaRepository.save(pessoa);
 		}catch (ObjetoNaoEncontrado e) {
 			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");
 		}
