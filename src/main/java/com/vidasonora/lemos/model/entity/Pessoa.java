@@ -37,7 +37,7 @@ public class Pessoa {
 	private Date nascimento;
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-	private List<Contato> contatos;
+ 	private List<Contato> contatos;
 	
 
 }
