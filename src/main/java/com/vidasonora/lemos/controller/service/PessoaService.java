@@ -23,8 +23,8 @@ public class PessoaService {
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
 		Pessoa pessoaSalva = pessoaRepository.save(pessoa);	
-		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoaSalva));
-		contatoRepository.saveAll(pessoa.getContatos());		
+//		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoaSalva));
+//		contatoRepository.saveAll(pessoa.getContatos());		
 		return pessoaSalva;
 	}
 	

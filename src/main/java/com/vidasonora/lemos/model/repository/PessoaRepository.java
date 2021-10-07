@@ -6,4 +6,5 @@ import com.vidasonora.lemos.model.entity.Pessoa;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, Long>{
 
+	Pessoa findByNome(String nome);
 }
