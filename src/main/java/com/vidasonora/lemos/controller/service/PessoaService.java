@@ -23,6 +23,7 @@ public class PessoaService {
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
 		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
+		pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
 		return pessoaRepository.save(pessoa);	
 	}
 	
@@ -40,6 +41,7 @@ public class PessoaService {
 		try {			
 			buscarPorId(id);
 			pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
+			pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
 			return pessoaRepository.save(pessoa);
 		}catch (ObjetoNaoEncontrado e) {
 			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");

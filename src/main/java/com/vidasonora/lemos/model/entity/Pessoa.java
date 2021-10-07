@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,8 +37,10 @@ public class Pessoa {
 	private Date nascimento;
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
-	@MapKeyJoinColumn(name = "pessoa_id")
 	private List<Contato> contatos;
+	
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private List<Endereco> enderecos;
 	
 
 }
