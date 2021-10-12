@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.vidasonora.lemos.controller.service.exception.AutenticacaoException;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.UsuarioRepository;
@@ -30,20 +31,45 @@ public class UsuarioServiceTests {
 	
 	@Test
 	void buscarUsuarioPorId() {
-		this.savarUsuario();
-		Usuario user = service.buscarPorId(Long.valueOf(1));
-		assertEquals(user.getId(), 1);
+		Long id = this.savarUsuario().getId();
+		Usuario user = service.buscarPorId(Long.valueOf(id));
+		assertEquals(id, user.getId());
 	}
 	
 	@Test
 	void erroAoBuscarUsuarioPorId() {
 		long id = 1;
-		repository.deleteById(id);
 		ObjetoNaoEncontrado obj = assertThrows(ObjetoNaoEncontrado.class, () -> service.buscarPorId(Long.valueOf(id)));
 		assertEquals("Usuário não encontrado id: " + id, obj.getMessage());
 	}
 	
+	@Test
+	void deletarUsuarioPorId() {
+		Usuario user = this.savarUsuario();
+		service.delete(user.getId());
+		user = service.buscarPorId(user.getId());
+		assertEquals(user.getStatus(), 2);
+	}
+	
+	@Test
+	void autenticarUsuario() {
+		Usuario user = this.savarUsuario();
+		user.setSenha("123123");
+		service.auntenticar(user);
+		assertNotNull(user);
+		
+	}
+	
+	@Test
+	void erroNaAutenticacaoDoUsuario() {
+		this.savarUsuario();
+		Usuario user = new Usuario(null, "admi@admin.com", "123123", null);
+		AutenticacaoException obj = assertThrows(AutenticacaoException.class,() -> service.auntenticar(user));
+		assertEquals("Usuário ou senha Inválidos", obj.getMessage());
+	}
+	
 	private Usuario savarUsuario() {
+		repository.deleteAll();
 		return service.cadastro(usuario);
 	}
 	

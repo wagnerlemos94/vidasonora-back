@@ -61,11 +61,8 @@ public class UsuarioService {
 	public Usuario auntenticar(Usuario usuario) {
 		
 		Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
-		if(!usuarioExistente.isPresent()) {
-			throw new AutenticacaoException("Login: " + usuario.getEmail() + " não localizado!");
-		}
-		if(!pe.matches(usuario.getSenha(), usuarioExistente.get().getSenha())) {
-			throw new AutenticacaoException("Senha inválida!");
+		if(!usuarioExistente.isPresent() || !pe.matches(usuario.getSenha(), usuarioExistente.get().getSenha())) {
+			throw new AutenticacaoException("Usuário ou senha Inválidos");
 		}
 		return usuarioExistente.get();
 	}
