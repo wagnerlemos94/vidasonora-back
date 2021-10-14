@@ -50,7 +50,7 @@ public class UsuarioResource {
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editar(@PathVariable Long id, @RequestBody Usuario usuario){
 		try {			
-			Usuario usuarioEditado = usuarioService.editar(id, usuario);
+			Usuario usuarioEditado = usuarioService.editar(usuario);
 			return ResponseEntity.ok().body(usuarioEditado);
 		} catch (ObjetoNaoAtualizado e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

@@ -40,7 +40,7 @@ public class UsuarioServiceTests {
 	void erroAoBuscarUsuarioPorId() {
 		long id = 1;
 		ObjetoNaoEncontrado obj = assertThrows(ObjetoNaoEncontrado.class, () -> service.buscarPorId(Long.valueOf(id)));
-		assertEquals("Usuário não encontrado id: " + id, obj.getMessage());
+		assertEquals("Usuário não encontrado Id: " + id, obj.getMessage());
 	}
 	
 	@Test

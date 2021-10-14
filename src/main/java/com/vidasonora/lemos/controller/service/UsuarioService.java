@@ -32,7 +32,7 @@ public class UsuarioService {
 	
 	public Usuario buscarPorId(Long id) {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);		
-		return usuario.orElseThrow(() -> new ObjetoNaoEncontrado("Usuarário não encontrado Id: " + id));
+		return usuario.orElseThrow(() -> new ObjetoNaoEncontrado("Usuário não encontrado Id: " + id));
 
 	}
 	

@@ -1,11 +1,11 @@
 package com.vidasonora.lemos.controller.resource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.vidasonora.lemos.model.entity.Usuario;
@@ -25,7 +25,7 @@ public class UsuarioResourceTest {
 	public void CadastrarUmUsuario() {
 		repository.deleteAll();
 		ResponseEntity<Usuario> user = resource.cadastro(usuario);
-		assertNotEquals(null, user.getBody().getId());
+		assertEquals(HttpStatus.OK, user.getStatusCode());
 		
 	}
 }
