@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "tb_usuario")
 @Entity
 public class Usuario {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -24,6 +23,5 @@ public class Usuario {
 	private String email;
 	private String senha; 	
 	private Integer status;
-	
-	
+
 }
