@@ -26,7 +26,7 @@ public class UsuarioServiceTests {
 	@Test
 	 void salvaUsuarioNoBancoDeDados() {
 		Usuario usuariosalvo = service.cadastro(usuario);
-		assertNotNull(usuariosalvo);
+		assertNotNull(usuariosalvo.getId());
 	}
 	
 	@Test
@@ -38,6 +38,7 @@ public class UsuarioServiceTests {
 	
 	@Test
 	void erroAoBuscarUsuarioPorId() {
+		repository.deleteAll();
 		long id = 1;
 		ObjetoNaoEncontrado obj = assertThrows(ObjetoNaoEncontrado.class, () -> service.buscarPorId(Long.valueOf(id)));
 		assertEquals("Usuário não encontrado Id: " + id, obj.getMessage());
@@ -45,10 +46,11 @@ public class UsuarioServiceTests {
 	
 	@Test
 	void deletarUsuarioPorId() {
+		int inativo = 2;
 		Usuario user = this.savarUsuario();
 		service.delete(user.getId());
 		user = service.buscarPorId(user.getId());
-		assertEquals(user.getStatus(), 2);
+		assertEquals(inativo,user.getStatus());
 	}
 	
 	@Test

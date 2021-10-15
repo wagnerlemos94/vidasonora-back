@@ -55,7 +55,7 @@ public class UsuarioService {
 	public String delete(Long id) {
 		try {
 			Usuario usuario = buscarPorId(id);
-			usuario.setStatus(0);
+			usuario.setStatus(2);
 			usuarioRepository.save(usuario);
 			usuarioRepository.flush();
 			return "Usuário deletado com Sucesso!";
