@@ -51,8 +51,15 @@ public class PessoaService {
 	public Pessoa editar(Pessoa pessoa) {
 		try {			
 			buscarPorId(pessoa.getId());
+			System.out.println(pessoa.getEnderecos());
+			pessoa.setEnderecos(null);
+			Cidade cidade = new Cidade();
 			pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
-			pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
+			for(Endereco endereco : pessoa.getEnderecos()) {
+				endereco.setPessoa(pessoa);
+				cidade = cidadeRepository.findByNome(endereco.getCidade().getNome());
+				endereco.setCidade(cidade);
+			}		
 			return pessoaRepository.save(pessoa);
 		}catch (ObjetoNaoEncontrado e) {
 			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");
