@@ -32,6 +32,7 @@ public class Pessoa {
 	private String cpf;
 	private String rg;
 	private String profissao;
+	private Integer status;
 	
 	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date nascimento;
@@ -41,6 +42,22 @@ public class Pessoa {
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
+	
+	public Pessoa(Long id, String nome, String cpf, String rg, String profissao, Date nascimento) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.profissao = profissao;
+		this.nascimento = nascimento;
+	}
+	public Pessoa(Long id, String nome, String cpf, String rg, String profissao) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.profissao = profissao;
+	}
 	
 
 }

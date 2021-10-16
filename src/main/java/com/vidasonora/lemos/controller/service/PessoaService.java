@@ -22,6 +22,7 @@ public class PessoaService {
 	
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
+		pessoa.setStatus(1);
 		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
 		pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
 		return pessoaRepository.save(pessoa);	
@@ -49,7 +50,9 @@ public class PessoaService {
 	}
 	
 	public void delete(Long id) {
-		pessoaRepository.deleteById(id);
+		Pessoa pessoa = buscarPorId(id);
+		pessoa.setStatus(2);
+		pessoaRepository.save(pessoa);		
 	}
 
 }

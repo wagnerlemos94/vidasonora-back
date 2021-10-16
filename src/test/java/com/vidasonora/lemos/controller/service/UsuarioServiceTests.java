@@ -45,7 +45,7 @@ public class UsuarioServiceTests {
 	}
 	
 	@Test
-	void deletarUsuarioPorId() {
+	void inativarUmUsuario() {
 		int inativo = 2;
 		Usuario user = this.savarUsuario();
 		service.delete(user.getId());
