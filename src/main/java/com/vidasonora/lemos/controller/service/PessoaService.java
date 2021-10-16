@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
+import com.vidasonora.lemos.model.entity.Cidade;
+import com.vidasonora.lemos.model.entity.Endereco;
 import com.vidasonora.lemos.model.entity.Pessoa;
+import com.vidasonora.lemos.model.repository.CidadeRepository;
 import com.vidasonora.lemos.model.repository.ContatoRepository;
 import com.vidasonora.lemos.model.repository.PessoaRepository;
 
@@ -19,12 +22,19 @@ public class PessoaService {
 	PessoaRepository pessoaRepository;
 	@Autowired
 	ContatoRepository contatoRepository;
+	@Autowired
+	CidadeRepository cidadeRepository;
 	
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
 		pessoa.setStatus(1);
+		Cidade cidade = new Cidade();
 		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
-		pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
+		for(Endereco endereco : pessoa.getEnderecos()) {
+			endereco.setPessoa(pessoa);
+			cidade = cidadeRepository.findByNome(endereco.getCidade().getNome());
+			endereco.setCidade(cidade);
+		}		
 		return pessoaRepository.save(pessoa);	
 	}
 	
@@ -38,9 +48,9 @@ public class PessoaService {
 		return pessoas;
 	}
 	
-	public Pessoa editar(Long id, Pessoa pessoa) {
+	public Pessoa editar(Pessoa pessoa) {
 		try {			
-			buscarPorId(id);
+			buscarPorId(pessoa.getId());
 			pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
 			pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
 			return pessoaRepository.save(pessoa);
