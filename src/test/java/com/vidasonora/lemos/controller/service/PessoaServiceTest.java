@@ -36,6 +36,7 @@ public class PessoaServiceTest {
 	private Pessoa criarUmaPessoaEmCascade(){
 		try {			
 			repository.deleteAll();
+			estadoRepository.deleteAll();
 			Cidade cidade = new Cidade(null, "Salvador");
 			
 			List<Cidade> cidades = new ArrayList<Cidade>();
@@ -51,7 +52,7 @@ public class PessoaServiceTest {
 			Contato contato2 = new Contato(null, "EMAIL","contato@contato.com", pessoa);
 			
 			Endereco endereco1 = new Endereco(null, "41250000", "Qualquer", "de cima", "0000", "Sem complemento", pessoa, cidade);
-			
+
 			pessoa.setContatos(Arrays.asList(contato1,contato2));
 			pessoa.setEnderecos(Arrays.asList(endereco1));
 			service.cadastro(pessoa);
