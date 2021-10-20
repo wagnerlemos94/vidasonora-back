@@ -37,6 +37,7 @@ public class PessoaResourceTest {
 	private Pessoa montarUmaPessoa(){
 		try {			
 			repository.deleteAll();
+			estadoRepository.deleteAll();
 			Cidade cidade = new Cidade(null, "Salvador");
 			
 			List<Cidade> cidades = new ArrayList<Cidade>();
