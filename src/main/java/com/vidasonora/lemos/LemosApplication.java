@@ -9,18 +9,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.vidasonora.lemos.controller.service.UsuarioService;
 import com.vidasonora.lemos.model.entity.Cidade;
 import com.vidasonora.lemos.model.entity.Estado;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.EstadoRepository;
-import com.vidasonora.lemos.model.repository.UsuarioRepository;
 
 @SpringBootApplication
 public class LemosApplication implements CommandLineRunner{
 	@Autowired
 	private EstadoRepository estadoRepository;
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioService usuarioService;
 	
 
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class LemosApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		Usuario usuario = new Usuario(null, "admin", "admin", 1);		
-		usuarioRepository.save(usuario);
+		usuarioService.cadastro(usuario);
 		
 		Cidade cidade1 = new Cidade(null, "Salvador");
 		Cidade cidade2 = new Cidade(null, "Lauro de Freitas");
