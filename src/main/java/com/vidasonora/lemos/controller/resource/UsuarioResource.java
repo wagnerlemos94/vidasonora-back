@@ -30,13 +30,13 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Long id){
+	public ResponseEntity<Usuario> buscar(@PathVariable Long id){
 		
 		try {			
 			Usuario usuario = usuarioService.buscarPorId(id);
 			return ResponseEntity.ok().body(usuario);
 		} catch (ObjetoNaoEncontrado e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+			throw new  ObjetoNaoEncontrado(e.getMessage());
 		}
 		
 	}
