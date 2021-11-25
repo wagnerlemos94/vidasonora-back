@@ -3,6 +3,8 @@ package com.vidasonora.lemos.controller.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class PessoaService {
 	@Autowired
 	ContatoRepository contatoRepository;
 	
+	@Transactional
 	public Pessoa cadastro(Pessoa pessoa) {
 		pessoa.setId(null);
 		pessoa.setStatus(1);
@@ -38,6 +41,7 @@ public class PessoaService {
 		return pessoas;
 	}
 	
+	@Transactional
 	public Pessoa editar(Long id, Pessoa pessoa) {
 		try {			
 			buscarPorId(id);
@@ -49,6 +53,7 @@ public class PessoaService {
 		}
 	}
 	
+	@Transactional
 	public void delete(Long id) {
 		Pessoa pessoa = buscarPorId(id);
 		pessoa.setStatus(2);

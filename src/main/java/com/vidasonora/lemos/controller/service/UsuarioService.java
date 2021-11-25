@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.vidasonora.lemos.controller.service.exception.AutenticacaoException;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
+import com.vidasonora.lemos.controller.service.exception.ObjetoNaoDeletado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.UsuarioRepository;

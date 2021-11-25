@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vidasonora.lemos.controller.service.AnamneseService;
 import com.vidasonora.lemos.model.entity.Anamnese;
-import com.vidasonora.lemos.model.entity.DTO.AnamneseInsertDTO;
 
 @RestController
 @RequestMapping(value = "anamneses")
@@ -19,8 +18,8 @@ public class AnamneseResource {
 	private AnamneseService anamneseService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Anamnese> cadastro(@RequestBody AnamneseInsertDTO anamneseDto){
-		Anamnese anamnese = anamneseService.cadastro(anamneseDto);
+	public ResponseEntity<Anamnese> cadastro(@RequestBody Anamnese anamnese){
+		anamnese = anamneseService.cadastro(anamnese);
 		return ResponseEntity.ok().body(anamnese);
 	}
 

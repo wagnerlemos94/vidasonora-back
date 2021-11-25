@@ -1,4 +1,4 @@
-package com.vidasonora.lemos.controller.service;
+package com.vidasonora.lemos.controller.service.exception;
 
 import java.util.NoSuchElementException;
 
