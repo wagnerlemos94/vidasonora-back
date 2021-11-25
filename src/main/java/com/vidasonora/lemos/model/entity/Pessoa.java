@@ -43,6 +43,9 @@ public class Pessoa {
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
 	
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private List<Anamnese> anamneses;
+	
 	public Pessoa(Long id, String nome, String cpf, String rg, String profissao, Date nascimento) {
 		this.id = id;
 		this.nome = nome;
