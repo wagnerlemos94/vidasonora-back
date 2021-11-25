@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class Pessoa {
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
 	
-	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Anamnese> anamneses;
 	
 	public Pessoa(Long id, String nome, String cpf, String rg, String profissao, Date nascimento) {
