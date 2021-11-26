@@ -1,5 +1,6 @@
 package com.vidasonora.lemos.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "tb_estado")
-public class Estado {
+public class Estado implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

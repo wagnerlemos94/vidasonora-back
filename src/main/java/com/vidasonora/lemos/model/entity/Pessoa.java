@@ -1,5 +1,6 @@
 package com.vidasonora.lemos.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,8 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "tb_pessoa")
-public class Pessoa {
+public class Pessoa implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,27 +13,30 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.Data;
 
 @Data
-@Table(name = "tb_comorbidades")
+@Table(name = "tb_queixas_Auditivas")
 @Entity
-public class Comorbidades implements Serializable{
+public class QueixasAuditivas implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ElementCollection
-	@CollectionTable(name = "tb_comorbidades_nomes")
+	@CollectionTable(name = "tb_queixas_auditivas_nomes")
 	@Column(name = "nome")
-	private Set<String> nomes;	
+	@ElementCollection
+	private Set<String> nomes;
+	@CollectionTable(name = "tb_queixas_auditivas_ouvido_direito")
+	@ElementCollection
+	private Set<String> ouvidoDireito;
+	@CollectionTable(name = "tb_queixas_auditivas_ouvido_esquerdo")
+	@ElementCollection
+	private Set<String> ouvidoEsquerdo;
 	
 	@OneToOne
-	@JsonBackReference
 	private Anamnese anamnese;
 	
 }
