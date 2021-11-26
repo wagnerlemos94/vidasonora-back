@@ -35,13 +35,23 @@ public class Anamnese implements Serializable{
 	private String preferenciaManunal;
 	
 	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
-	private Comorbidades comorbidades;
+	private Comorbidade comorbidade;
 	
 	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
-	private QueixasAuditivas queixasAuditivas;
+	private QueixasAuditiva queixasAuditiva;
 	
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pessoa pessoa;
+	
+	public void relacionaComorbidade(Anamnese anamnese) {
+		comorbidade = anamnese.getComorbidade();
+		comorbidade.setAnamnese(anamnese);
+	}
+	
+	public void relacionaQueixasAuditiva(Anamnese anamnese) {
+		queixasAuditiva = anamnese.getQueixasAuditiva();
+		queixasAuditiva.setAnamnese(anamnese);
+	}
 	
 }
