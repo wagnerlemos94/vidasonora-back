@@ -17,14 +17,8 @@ public class AnamneseService {
 	@Transactional
 	public Anamnese cadastro(Anamnese anamnese) {
 		anamnese.setId(null);
-//		Anamnese anamneseSalva = null;
 		anamnese = anamneseRepository.save(anamnese);
-		anamnese.relacionaComorbidade(anamnese);
-//		System.out.println(anamnese);
-		anamnese.relacionaQueixasAuditiva(anamnese);
-//		System.out.println(anamnese);
-//		anamnese.relacionaQueixasAuditiva(anamnese);
-//		System.out.println(anamnese);
+		anamnese.relacionaEntidades(anamnese);
 		return anamnese;
 	}
 

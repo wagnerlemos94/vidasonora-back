@@ -40,6 +40,15 @@ public class Anamnese implements Serializable{
 	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
 	private QueixasAuditiva queixasAuditiva;
 	
+	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
+	private Tontura tontura;
+	
+	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
+	private Zumbido zumbido;
+	
+	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
+	private Aparelho aparelho;
+	
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Pessoa pessoa;
@@ -49,9 +58,32 @@ public class Anamnese implements Serializable{
 		comorbidade.setAnamnese(anamnese);
 	}
 	
-	public void relacionaQueixasAuditiva(Anamnese anamnese) {
+	private void relacionaQueixasAuditiva(Anamnese anamnese) {
 		queixasAuditiva = anamnese.getQueixasAuditiva();
 		queixasAuditiva.setAnamnese(anamnese);
+	}
+
+	private void relacionaTontura(Anamnese anamnese) {
+		tontura = anamnese.getTontura();
+		tontura.setAnamnese(anamnese);		
+	}
+
+	private void relacionaZumbido(Anamnese anamnese) {
+		zumbido = anamnese.getZumbido();
+		zumbido.setAnamnese(anamnese);		
+	}
+	
+	private void relacionaAparelho(Anamnese anamnese) {
+		aparelho = anamnese.getAparelho();
+		aparelho.setAnamnese(anamnese);		
+	}
+	
+	public void relacionaEntidades(Anamnese anamnese) {
+		relacionaComorbidade(anamnese);
+		relacionaQueixasAuditiva(anamnese);
+		relacionaTontura(anamnese);
+		relacionaZumbido(anamnese);
+		relacionaAparelho(anamnese);
 	}
 	
 }

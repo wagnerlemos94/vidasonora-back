@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -40,7 +39,6 @@ public class QueixasAuditiva implements Serializable{
 	private Set<String> ouvidoEsquerdo;
 	
 	@OneToOne
-//	@JsonBackReference
 	@JsonIgnore
 	private Anamnese anamnese;
 	
