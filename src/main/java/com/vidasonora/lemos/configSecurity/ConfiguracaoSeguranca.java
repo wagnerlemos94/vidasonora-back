@@ -26,6 +26,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 			"/h2-console/**",
 			"/pessoas/**",
 			"/anamneses/**",
+			"/prontuarios/**",
 			"/usuarios/**"
 	};
 	

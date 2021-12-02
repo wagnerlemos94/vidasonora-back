@@ -17,6 +17,7 @@ import com.vidasonora.lemos.model.entity.Contato;
 import com.vidasonora.lemos.model.entity.Endereco;
 import com.vidasonora.lemos.model.entity.Estado;
 import com.vidasonora.lemos.model.entity.Pessoa;
+import com.vidasonora.lemos.model.entity.Prontuario;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.EstadoRepository;
 
@@ -64,6 +65,11 @@ public class LemosApplication implements CommandLineRunner{
 		
 		pessoa.setContatos(Arrays.asList(contato1,contato2));
 		pessoa.setEnderecos(Arrays.asList(endereco1));
+		
+		Prontuario prontuario = new Prontuario();
+		
+		pessoa.setProntuario(prontuario);
+		prontuario.setPessoa(pessoa);
 		
 		pessoaService.cadastro(pessoa);
 	}

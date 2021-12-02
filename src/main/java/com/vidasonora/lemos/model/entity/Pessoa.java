@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,9 +48,10 @@ public class Pessoa implements Serializable{
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos;
 	
-	@OneToOne(mappedBy = "pessoa")
+	@OneToOne(mappedBy = "pessoa",cascade = CascadeType.ALL)
 	private Prontuario prontuario;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Anamnese> anamneses;
 	
