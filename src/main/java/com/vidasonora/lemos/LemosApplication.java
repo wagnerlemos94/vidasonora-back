@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vidasonora.lemos.controller.service.PessoaService;
+import com.vidasonora.lemos.controller.service.ProntuarioService;
 import com.vidasonora.lemos.controller.service.UsuarioService;
 import com.vidasonora.lemos.model.entity.Cidade;
 import com.vidasonora.lemos.model.entity.Contato;
@@ -29,6 +30,8 @@ public class LemosApplication implements CommandLineRunner{
 	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaService pessoaService;
+	@Autowired
+	private ProntuarioService prontuarioService;
 
 	
 
@@ -68,10 +71,10 @@ public class LemosApplication implements CommandLineRunner{
 		
 		Prontuario prontuario = new Prontuario();
 		
-		pessoa.setProntuario(prontuario);
-		prontuario.setPessoa(pessoa);
-		
 		pessoaService.cadastro(pessoa);
+		
+		prontuario.setPessoa(pessoa);
+		prontuarioService.cadastro(prontuario);
 	}
 
 }
