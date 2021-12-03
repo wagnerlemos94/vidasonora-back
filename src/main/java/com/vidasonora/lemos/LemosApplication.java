@@ -11,14 +11,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vidasonora.lemos.controller.service.PessoaService;
-import com.vidasonora.lemos.controller.service.ProntuarioService;
 import com.vidasonora.lemos.controller.service.UsuarioService;
 import com.vidasonora.lemos.model.entity.Cidade;
 import com.vidasonora.lemos.model.entity.Contato;
 import com.vidasonora.lemos.model.entity.Endereco;
 import com.vidasonora.lemos.model.entity.Estado;
 import com.vidasonora.lemos.model.entity.Pessoa;
-import com.vidasonora.lemos.model.entity.Prontuario;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.EstadoRepository;
 
@@ -29,11 +27,7 @@ public class LemosApplication implements CommandLineRunner{
 	@Autowired
 	private UsuarioService usuarioService;
 	@Autowired
-	private PessoaService pessoaService;
-	@Autowired
-	private ProntuarioService prontuarioService;
-
-	
+	private PessoaService pessoaService;	
 
 	public static void main(String[] args) {
 		SpringApplication.run(LemosApplication.class, args);
@@ -68,13 +62,8 @@ public class LemosApplication implements CommandLineRunner{
 		
 		pessoa.setContatos(Arrays.asList(contato1,contato2));
 		pessoa.setEnderecos(Arrays.asList(endereco1));
-		
-		Prontuario prontuario = new Prontuario();
-		
+				
 		pessoaService.cadastro(pessoa);
-		
-		prontuario.setPessoa(pessoa);
-		prontuarioService.cadastro(prontuario);
 	}
 
 }

@@ -11,24 +11,33 @@ import org.springframework.stereotype.Service;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
 import com.vidasonora.lemos.model.entity.Pessoa;
-import com.vidasonora.lemos.model.repository.ContatoRepository;
+import com.vidasonora.lemos.model.entity.Prontuario;
 import com.vidasonora.lemos.model.repository.PessoaRepository;
 
 @Service
 public class PessoaService {
 	
 	@Autowired
-	PessoaRepository pessoaRepository;
+	private PessoaRepository pessoaRepository;
 	@Autowired
-	ContatoRepository contatoRepository;
+	private ProntuarioService prontuarioService;
 	
 	@Transactional
 	public Pessoa cadastro(Pessoa pessoa) {
+		Pessoa pessoaSalva;
 		pessoa.setId(null);
 		pessoa.setStatus(1);
 		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
 		pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
-		return pessoaRepository.save(pessoa);	
+		pessoaSalva = pessoaRepository.save(pessoa);
+		criarProntuario(pessoa);
+		return pessoaSalva;	
+	}
+	
+	private void criarProntuario(Pessoa pessoa) {
+		Prontuario prontuario = new Prontuario();
+		prontuario.setPessoa(pessoa);
+		prontuarioService.cadastro(prontuario);
 	}
 	
 	public Pessoa buscarPorId(Long id) {

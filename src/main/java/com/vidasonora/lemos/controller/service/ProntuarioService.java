@@ -2,6 +2,8 @@ package com.vidasonora.lemos.controller.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ public class ProntuarioService {
 	@Autowired
 	private ProntuarioRepository prontuarioRepository;
 	
+	@Transactional
 	public void cadastro(Prontuario prontuario) {
 		prontuario.setId(null);
 		prontuarioRepository.save(prontuario);
