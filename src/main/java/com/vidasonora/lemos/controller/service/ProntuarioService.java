@@ -1,6 +1,7 @@
 package com.vidasonora.lemos.controller.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
-import com.vidasonora.lemos.model.dto.prontuario.ProntuarioConsultaDTO;
 import com.vidasonora.lemos.model.entity.Prontuario;
 import com.vidasonora.lemos.model.repository.ProntuarioRepository;
 
@@ -24,15 +24,11 @@ public class ProntuarioService {
 		prontuarioRepository.save(prontuario);
 	}
 	
-	public ProntuarioConsultaDTO buscarPorId(Long id) {
-		try {
-			Prontuario prontuario = prontuarioRepository.findById(id).get();
-			ProntuarioConsultaDTO prontuarioConsultaDTO = new ProntuarioConsultaDTO();
-			prontuarioConsultaDTO = prontuarioConsultaDTO.convertToProntuario(prontuario);
-			return prontuarioConsultaDTO;
-		} catch (Exception e) {
-			throw new ObjetoNaoEncontrado("Prontuario não encontrado Id: " + id);
-		}
+	public Prontuario buscarPorId(Long id) {
+		
+		Optional<Prontuario> prontuario = prontuarioRepository.findById(id);
+		return prontuario.orElseThrow(() ->  new ObjetoNaoEncontrado("Prontuario não encontrado Id: " + id));
+		
 	}
 	
 	public List<Prontuario> buscarTodos(){
