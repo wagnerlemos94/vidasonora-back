@@ -26,7 +26,6 @@ public class Prontuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	
-	
 	@OneToOne
 	private Pessoa pessoa;
 	@OneToMany

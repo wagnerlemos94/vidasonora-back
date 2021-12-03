@@ -30,6 +30,16 @@ public class ProntuarioResource {
 		}
 	}
 	
+	@RequestMapping(value = "idPessoa/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> buscarPorIdPessoa(@PathVariable Long id){
+		try {			
+			Prontuario prontuario = prontuarioService.buscarPorIdPessoa(id);
+			return ResponseEntity.ok().body(prontuario);
+		} catch (ObjetoNaoEncontrado e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Prontuario>> buscarTodos(){
 		List<Prontuario> prontuario = prontuarioService.buscarTodos();

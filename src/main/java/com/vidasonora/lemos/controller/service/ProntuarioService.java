@@ -24,11 +24,14 @@ public class ProntuarioService {
 		prontuarioRepository.save(prontuario);
 	}
 	
-	public Prontuario buscarPorId(Long id) {
-		
+	public Prontuario buscarPorId(Long id) {		
 		Optional<Prontuario> prontuario = prontuarioRepository.findById(id);
+		return prontuario.orElseThrow(() ->  new ObjetoNaoEncontrado("Prontuario não encontrado Id: " + id));		
+	}
+	
+	public Prontuario buscarPorIdPessoa(Long id) {
+		Optional<Prontuario> prontuario = prontuarioRepository.buscarProntuarioPorPessoa(id);
 		return prontuario.orElseThrow(() ->  new ObjetoNaoEncontrado("Prontuario não encontrado Id: " + id));
-		
 	}
 	
 	public List<Prontuario> buscarTodos(){
