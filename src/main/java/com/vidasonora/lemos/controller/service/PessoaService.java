@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
+import com.vidasonora.lemos.model.entity.Endereco;
 import com.vidasonora.lemos.model.entity.Pessoa;
 import com.vidasonora.lemos.model.entity.Prontuario;
+import com.vidasonora.lemos.model.repository.CidadeRepository;
+import com.vidasonora.lemos.model.repository.ContatoRepository;
 import com.vidasonora.lemos.model.repository.PessoaRepository;
 
 @Service
@@ -21,17 +24,28 @@ public class PessoaService {
 	private PessoaRepository pessoaRepository;
 	@Autowired
 	private ProntuarioService prontuarioService;
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ContatoRepository contatoRepository;
 	
 	@Transactional
 	public Pessoa cadastro(Pessoa pessoa) {
 		Pessoa pessoaSalva;
 		pessoa.setId(null);
 		pessoa.setStatus(1);
+		relacionaEnderecos(pessoa);
 		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
-		pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
 		pessoaSalva = pessoaRepository.save(pessoa);
 		criarProntuario(pessoa);
 		return pessoaSalva;	
+	}
+	
+	private void relacionaEnderecos(Pessoa pessoa) {
+		for(Endereco endereco : pessoa.getEnderecos()) {
+			endereco.setCidade(cidadeRepository.findByNome(endereco.getCidade().getNome()));
+			endereco.setPessoa(pessoa);
+		}
 	}
 	
 	private void criarProntuario(Pessoa pessoa) {
@@ -54,8 +68,9 @@ public class PessoaService {
 	public Pessoa editar(Long id, Pessoa pessoa) {
 		try {			
 			buscarPorId(id);
+			contatoRepository.deleteByPessoa(pessoa);
 			pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
-			pessoa.getEnderecos().forEach(endereco -> endereco.setPessoa(pessoa));
+			relacionaEnderecos(pessoa);
 			return pessoaRepository.save(pessoa);
 		}catch (ObjetoNaoEncontrado e) {
 			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");
