@@ -28,7 +28,7 @@ public class Anamnese implements Serializable{
 	private String queixaPrincipal;
 	private String solicitante;
 	private String encaminhadoPor;
-	private String preferenciaManunal;
+	private String preferenciaManual;
 	
 	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
 	private Comorbidade comorbidade;
