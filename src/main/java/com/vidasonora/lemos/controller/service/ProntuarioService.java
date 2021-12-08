@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
+import com.vidasonora.lemos.model.entity.Pessoa;
 import com.vidasonora.lemos.model.entity.Prontuario;
 import com.vidasonora.lemos.model.repository.ProntuarioRepository;
 
@@ -30,7 +31,9 @@ public class ProntuarioService {
 	}
 	
 	public Prontuario buscarPorIdPessoa(Long id) {
-		Optional<Prontuario> prontuario = prontuarioRepository.buscarProntuarioPorPessoa(id);
+		Pessoa pessoa = new Pessoa();
+		pessoa.setId(id);
+		Optional<Prontuario> prontuario = prontuarioRepository.findByPessoa(pessoa);
 		return prontuario.orElseThrow(() ->  new ObjetoNaoEncontrado("Prontuario não encontrado Id: " + id));
 	}
 	
