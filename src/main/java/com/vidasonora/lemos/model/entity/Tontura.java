@@ -27,7 +27,7 @@ public class Tontura implements Serializable{
 	private Long id;
 	private String inicio;
 	private String ocorrencia;
-	private String intencidade;
+	private String intensidade;
 	@ElementCollection
 	@CollectionTable(name = "tb_tontura_tendencia_queda")
 	private List<String> tendenciaQueda;
@@ -46,7 +46,7 @@ public class Tontura implements Serializable{
 	@ElementCollection
 	@CollectionTable(name = "tb_tontura_desvio_marcha")
 	private List<String> desvioMarcha;
-	private String fatoresDesecadeantes;
+	private String fatoresDesencadeantes;
 	private String fatoresAgravantes;
 	private String fatoresMelhora;
 	private String sintomasConcomitantes;

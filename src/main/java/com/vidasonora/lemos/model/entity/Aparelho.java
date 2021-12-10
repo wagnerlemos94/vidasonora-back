@@ -26,7 +26,6 @@ public class Aparelho implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String perda_auditiva;
-	private String ducaracaoCrice;
 	private String familiaresPerdaAuditiva;
 	private String desconfortoSonsIntensos;
 	@CollectionTable(name = "tb_sus_particular")

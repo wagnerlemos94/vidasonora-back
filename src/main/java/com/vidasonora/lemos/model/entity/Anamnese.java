@@ -1,6 +1,7 @@
 package com.vidasonora.lemos.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +34,9 @@ public class Anamnese implements Serializable{
 	private String solicitante;
 	private String encaminhadoPor;
 	private String preferenciaManual;
+	@CreationTimestamp
+	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private Date data;
 	
 	@OneToOne(mappedBy = "anamnese",cascade = CascadeType.ALL)
 	private Comorbidade comorbidade;
