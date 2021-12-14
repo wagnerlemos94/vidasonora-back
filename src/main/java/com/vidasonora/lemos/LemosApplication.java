@@ -37,7 +37,7 @@ public class LemosApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		Usuario usuario = new Usuario(null, "admin", "admin", 1);		
+		Usuario usuario = new Usuario(null,"Aline Cupertino Lemos" , "admin", "admin", 1);		
 
 		usuarioService.cadastro(usuario);
 		
