@@ -27,6 +27,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 			"/pessoas/**",
 			"/anamneses/**",
 			"/prontuarios/**",
+			"/evolucoes/**",
 			"/usuarios/**"
 	};
 	

@@ -30,6 +30,8 @@ public class Prontuario implements Serializable{
 	private Pessoa pessoa;
 	@OneToMany
 	private List<Anamnese> anamneses;
+	@OneToMany(mappedBy = "prontuario")
+	private List<Evolucao> evolucoes;
 	
 
 }
