@@ -1,5 +1,6 @@
 package com.vidasonora.lemos.controller.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import com.vidasonora.lemos.controller.service.exception.AutenticacaoException;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoDeletado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
+import com.vidasonora.lemos.model.dto.usuario.UsuarioConsultaDTO;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.UsuarioRepository;
 
@@ -37,9 +39,14 @@ public class UsuarioService {
 
 	}
 	
-	public List<Usuario> buscarTodos(){
+	public List<UsuarioConsultaDTO> buscarTodos(){
+		UsuarioConsultaDTO dto = new UsuarioConsultaDTO();
+		List<UsuarioConsultaDTO> listaUsuarioDto = new ArrayList<UsuarioConsultaDTO>();
 		List<Usuario> usuarios = usuarioRepository.findAll();
-		return usuarios;
+		for(Usuario usuario : usuarios) {
+			listaUsuarioDto.add(dto.converteToDto(usuario));
+		}
+		return listaUsuarioDto;
 	}
 	
 	@Transactional
