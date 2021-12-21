@@ -10,12 +10,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.vidasonora.lemos.controller.service.PerfilService;
 import com.vidasonora.lemos.controller.service.PessoaService;
 import com.vidasonora.lemos.controller.service.UsuarioService;
 import com.vidasonora.lemos.model.entity.Cidade;
 import com.vidasonora.lemos.model.entity.Contato;
 import com.vidasonora.lemos.model.entity.Endereco;
 import com.vidasonora.lemos.model.entity.Estado;
+import com.vidasonora.lemos.model.entity.Perfil;
 import com.vidasonora.lemos.model.entity.Pessoa;
 import com.vidasonora.lemos.model.entity.Usuario;
 import com.vidasonora.lemos.model.repository.EstadoRepository;
@@ -28,6 +30,8 @@ public class LemosApplication implements CommandLineRunner{
 	private UsuarioService usuarioService;
 	@Autowired
 	private PessoaService pessoaService;	
+	@Autowired
+	private PerfilService perfilService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LemosApplication.class, args);
@@ -37,7 +41,11 @@ public class LemosApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-		Usuario usuario = new Usuario(null,"Aline Cupertino Lemos" , "admin", "admin", 1);		
+		Perfil perfil = new Perfil(null,"ADMIN");
+		
+		perfilService.cadastro(perfil);
+		
+		Usuario usuario = new Usuario(null,"Aline Cupertino Lemos" , "admin", "admin", 1, perfil);		
 
 		usuarioService.cadastro(usuario);
 		

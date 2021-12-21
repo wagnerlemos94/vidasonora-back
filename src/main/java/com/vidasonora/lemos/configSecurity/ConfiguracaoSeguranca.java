@@ -28,6 +28,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter{
 			"/anamneses/**",
 			"/prontuarios/**",
 			"/evolucoes/**",
+			"/perfis/**",
 			"/usuarios/**"
 	};
 	
