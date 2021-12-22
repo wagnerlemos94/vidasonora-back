@@ -62,6 +62,18 @@ public class UsuarioService {
 	@Transactional
 	public String delete(Long id) {
 		try {
+			buscarPorId(id);
+			usuarioRepository.deleteById(id);
+			usuarioRepository.flush();
+			return "Usuário deletado com Sucesso!";
+		} catch (ObjetoNaoEncontrado e) {
+			throw new ObjetoNaoDeletado(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public String desativar(Long id) {
+		try {
 			Usuario usuario = buscarPorId(id);
 			usuario.setStatus(2);
 			usuarioRepository.save(usuario);
@@ -72,6 +84,18 @@ public class UsuarioService {
 		}
 	}
 	
+	@Transactional
+	public String ativar(Long id) {
+		try {
+			Usuario usuario = buscarPorId(id);
+			usuario.setStatus(1);
+			usuarioRepository.save(usuario);
+			usuarioRepository.flush();
+			return "Usuário deletado com Sucesso!";
+		} catch (ObjetoNaoEncontrado e) {
+			throw new ObjetoNaoDeletado(e.getMessage());
+		}
+	}
 	public Usuario auntenticar(Usuario usuario) {
 		
 		Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());

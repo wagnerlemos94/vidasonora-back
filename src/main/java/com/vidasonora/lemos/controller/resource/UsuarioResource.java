@@ -64,6 +64,18 @@ public class UsuarioResource {
 		return ResponseEntity.ok().build();
 	}
 	
+	@RequestMapping(value="/ativar/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> ativar(@PathVariable Long id){
+		usuarioService.ativar(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	@RequestMapping(value="/desativar/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> desativar(@PathVariable Long id){
+		usuarioService.desativar(id);
+		return ResponseEntity.ok().build();
+	}
+	
 	@RequestMapping(value = "/autenticar", method = RequestMethod.POST)
 	public ResponseEntity<?> autenticar(@RequestBody Usuario usuario){
 		try {

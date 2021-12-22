@@ -19,7 +19,7 @@ public class UsuarioConsultaDTO {
 	
 	public UsuarioConsultaDTO converteToDto(Usuario usuario) {
 		String status = "ATIVO";
-		if(usuario.getPerfil().getId() != 1) {
+		if(usuario.getStatus() != 1) {
 			status = "INATIVO";
 		}
 		UsuarioConsultaDTO dto = new UsuarioConsultaDTO(usuario.getId(), usuario.getNome(), usuario.getEmail(),
