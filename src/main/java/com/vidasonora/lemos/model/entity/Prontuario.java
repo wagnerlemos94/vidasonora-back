@@ -1,40 +1,37 @@
 package com.vidasonora.lemos.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@AllArgsConstructor @NoArgsConstructor
-@Getter @Setter
-@ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "tb_prontuario")
 @Entity
-@Table(name = "tb_contato")
-public class Contato implements Serializable{
+public class Prontuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String tipo;
-	private String contato;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "pessoa_id")
+	private Long id;	
+	@OneToOne
 	private Pessoa pessoa;
+	@OneToMany
+	private List<Anamnese> anamneses;
+	@OneToMany(mappedBy = "prontuario")
+	private List<Evolucao> evolucoes;
+	
 
 }

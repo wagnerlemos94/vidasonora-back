@@ -1,5 +1,6 @@
 package com.vidasonora.lemos.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,17 +14,15 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
-@Getter @Setter
-@ToString
+@Data
 @Entity
 @Table(name = "tb_pessoa")
-public class Pessoa {
+public class Pessoa implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

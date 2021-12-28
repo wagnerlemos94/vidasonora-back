@@ -51,7 +51,7 @@ public class PessoaResource {
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Pessoa> editar(@PathVariable Long id, @RequestBody Pessoa pessoa){
 		try {			
-			Pessoa pessoaEditado = pessoaService.editar(pessoa);
+			Pessoa pessoaEditado = pessoaService.editar(id, pessoa);
 			return ResponseEntity.ok().body(pessoaEditado);
 		} catch (ObjetoNaoAtualizado e) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, e.getMessage());

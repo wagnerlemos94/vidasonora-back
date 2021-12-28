@@ -1,38 +1,39 @@
 package com.vidasonora.lemos.model.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@Table(name = "tb_comorbidades")
 @Entity
-@Table(name = "tb_estado")
-public class Estado implements Serializable{
+public class Comorbidade implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
-	private String sigla;
 	
+	@ElementCollection
+	@CollectionTable(name = "tb_comorbidades_nomes")
+	@Column(name = "nome")
+	private Set<String> nomes;	
+	
+	@OneToOne
 	@JsonIgnore
-	@OneToMany(mappedBy = "estado", cascade = CascadeType.ALL)
-	private List<Cidade> cidades;
-
+	private Anamnese anamnese;
+	
 }

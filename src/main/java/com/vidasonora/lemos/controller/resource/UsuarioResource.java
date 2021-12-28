@@ -14,6 +14,7 @@ import com.vidasonora.lemos.controller.service.UsuarioService;
 import com.vidasonora.lemos.controller.service.exception.AutenticacaoException;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
+import com.vidasonora.lemos.model.dto.usuario.UsuarioConsultaDTO;
 import com.vidasonora.lemos.model.entity.Usuario;
 
 @RestController
@@ -42,8 +43,8 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Usuario>> buscarTodos(){
-		List<Usuario> usuarios = usuarioService.buscarTodos();
+	public ResponseEntity<List<UsuarioConsultaDTO>> buscarTodos(){
+		List<UsuarioConsultaDTO> usuarios = usuarioService.buscarTodos();
 		return ResponseEntity.ok().body(usuarios);
 	}
 	
@@ -60,6 +61,18 @@ public class UsuarioResource {
 	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		usuarioService.delete(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	@RequestMapping(value="/ativar/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> ativar(@PathVariable Long id){
+		usuarioService.ativar(id);
+		return ResponseEntity.ok().build();
+	}
+	
+	@RequestMapping(value="/desativar/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> desativar(@PathVariable Long id){
+		usuarioService.desativar(id);
 		return ResponseEntity.ok().build();
 	}
 	

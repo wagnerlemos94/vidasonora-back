@@ -3,14 +3,16 @@ package com.vidasonora.lemos.controller.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoAtualizado;
 import com.vidasonora.lemos.controller.service.exception.ObjetoNaoEncontrado;
-import com.vidasonora.lemos.model.entity.Cidade;
 import com.vidasonora.lemos.model.entity.Endereco;
 import com.vidasonora.lemos.model.entity.Pessoa;
+import com.vidasonora.lemos.model.entity.Prontuario;
 import com.vidasonora.lemos.model.repository.CidadeRepository;
 import com.vidasonora.lemos.model.repository.ContatoRepository;
 import com.vidasonora.lemos.model.repository.PessoaRepository;
@@ -19,23 +21,38 @@ import com.vidasonora.lemos.model.repository.PessoaRepository;
 public class PessoaService {
 	
 	@Autowired
-	PessoaRepository pessoaRepository;
+	private PessoaRepository pessoaRepository;
 	@Autowired
-	ContatoRepository contatoRepository;
+	private ProntuarioService prontuarioService;
 	@Autowired
-	CidadeRepository cidadeRepository;
+	private ContatoRepository contatoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
 	
+	@Transactional
 	public Pessoa cadastro(Pessoa pessoa) {
+		Pessoa pessoaSalva;
 		pessoa.setId(null);
 		pessoa.setStatus(1);
-		Cidade cidade = new Cidade();
+		relacionaEnderecos(pessoa);
 		pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
+		pessoaSalva = pessoaRepository.save(pessoa);
+		criarProntuario(pessoa);
+		return pessoaSalva;	
+	}
+	
+	private void relacionaEnderecos(Pessoa pessoa) {
 		for(Endereco endereco : pessoa.getEnderecos()) {
+			endereco.setCidade(cidadeRepository.findByNome(endereco.getCidade().getNome()));
 			endereco.setPessoa(pessoa);
-			cidade = cidadeRepository.findByNome(endereco.getCidade().getNome());
-			endereco.setCidade(cidade);
-		}		
-		return pessoaRepository.save(pessoa);	
+		}
+	}
+	
+	private void criarProntuario(Pessoa pessoa) {
+		Prontuario prontuario = new Prontuario();
+		prontuario.setPessoa(pessoa);
+		prontuarioService.cadastro(prontuario);
 	}
 	
 	public Pessoa buscarPorId(Long id) {
@@ -48,24 +65,20 @@ public class PessoaService {
 		return pessoas;
 	}
 	
-	public Pessoa editar(Pessoa pessoa) {
+	@Transactional
+	public Pessoa editar(Long id, Pessoa pessoa) {
 		try {			
-			buscarPorId(pessoa.getId());
-			System.out.println(pessoa.getEnderecos());
-			pessoa.setEnderecos(null);
-			Cidade cidade = new Cidade();
+			buscarPorId(id);
+			contatoRepository.deleteByPessoa(pessoa);
 			pessoa.getContatos().forEach(contato -> contato.setPessoa(pessoa));
-			for(Endereco endereco : pessoa.getEnderecos()) {
-				endereco.setPessoa(pessoa);
-				cidade = cidadeRepository.findByNome(endereco.getCidade().getNome());
-				endereco.setCidade(cidade);
-			}		
+			relacionaEnderecos(pessoa);
 			return pessoaRepository.save(pessoa);
 		}catch (ObjetoNaoEncontrado e) {
 			throw new ObjetoNaoAtualizado("Pessoa não encontrada para Editar");
 		}
 	}
 	
+	@Transactional
 	public void delete(Long id) {
 		Pessoa pessoa = buscarPorId(id);
 		pessoa.setStatus(2);

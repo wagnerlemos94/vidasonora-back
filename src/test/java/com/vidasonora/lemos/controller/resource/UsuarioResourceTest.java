@@ -25,7 +25,7 @@ public class UsuarioResourceTest {
 	@Autowired
 	private UsuarioService service;
 	
-	private final Usuario usuario = new Usuario(null, "teste@teste.com.br", "123123", 1);
+	private final Usuario usuario = new Usuario(null,"testes", "teste@teste.com.br", "123123", 1, null);
 	
 	@Test
 	public void CadastrarUmUsuario() {

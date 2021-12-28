@@ -21,7 +21,7 @@ public class UsuarioServiceTests {
 	@Autowired
 	private UsuarioRepository repository;
 	
-	private final Usuario usuario = new Usuario(null, "teste@teste.com.br", "123123", 1);
+	private final Usuario usuario = new Usuario(null,"teste", "teste@teste.com.br", "123123", 1,null);
 	
 	@Test
 	 void salvaUsuarioNoBancoDeDados() {
@@ -65,7 +65,7 @@ public class UsuarioServiceTests {
 	@Test
 	void erroNaAutenticacaoDoUsuario() {
 		this.savarUsuario();
-		Usuario user = new Usuario(null, "admi@admin.com", "123123", null);
+		Usuario user = new Usuario(null,"teste", "admi@admin.com", "123123", null, null);
 		AutenticacaoException obj = assertThrows(AutenticacaoException.class,() -> service.auntenticar(user));
 		assertEquals("Usuário ou senha Inválidos", obj.getMessage());
 	}
