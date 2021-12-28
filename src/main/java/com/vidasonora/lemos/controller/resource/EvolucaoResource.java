@@ -1,7 +1,10 @@
 package com.vidasonora.lemos.controller.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,5 +26,16 @@ public class EvolucaoResource {
 		return ResponseEntity.ok().body(evolucao);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Evolucao>> buscarTodos(){
+		List<Evolucao> evolucoes =  evolucaoService.buscarTodos();
+		return ResponseEntity.ok().body(evolucoes);
+	}
+	
+	@RequestMapping(value="prontuario/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<Evolucao>> buscarTodosPorIdPessoa(@PathVariable Long id){
+		List<Evolucao> evolucoes =  evolucaoService.buscarTodosPorIdProntuario(id);
+		return ResponseEntity.ok().body(evolucoes);
+	}
 	
 }

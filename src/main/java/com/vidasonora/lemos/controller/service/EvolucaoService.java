@@ -1,5 +1,7 @@
 package com.vidasonora.lemos.controller.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,11 @@ public class EvolucaoService {
 		return evolucaoRepository.save(evolucao);
 	}
 	
+	public List<Evolucao> buscarTodos(){
+		return evolucaoRepository.findAll();
+	}
+	
+	public List<Evolucao> buscarTodosPorIdProntuario(Long id){
+		return evolucaoRepository.buscarTodosPorIdProntuario(id);
+	}
 }

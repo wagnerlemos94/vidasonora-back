@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -32,6 +33,8 @@ public class Evolucao implements Serializable{
 	private Long id;
 	private String nomeProfissional;
 	private String descricao;
+	
+	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "yyyy-DD-mm")
 	private Date data;
 	@JsonIgnore
 	@CreationTimestamp
