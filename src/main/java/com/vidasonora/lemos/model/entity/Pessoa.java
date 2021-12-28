@@ -33,7 +33,7 @@ public class Pessoa implements Serializable{
 	private String profissao;
 	private Integer status;
 	
-	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@JsonFormat( shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date nascimento;
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
