@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
+		<version>2.6.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.vidasonora</groupId>
-	<artifactId>lemos</artifactId>
+	<groupId>com.digitadasistemas</groupId>
+	<artifactId>vida-sonora</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>lemos</name>
+	<name>vida-sonora</name>
 	<description>Sistema para uma clinica de Aparelhos Auditivos</description>
 	<properties>
 		<java.version>11</java.version>
@@ -54,6 +54,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
 		</dependency>
 	</dependencies>
 
